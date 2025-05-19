@@ -6,14 +6,14 @@ class WorkoutData extends ChangeNotifier {
   List<Workout> workoutList = [
     Workout(
       name: "Upper Body",
-      exercise: [
+      exercises: [
         Exercise(name: "Biceps Curl", weight: "10", reps: "10", sets: "3"),
       ],
     ),
     Workout(
       name: "Lower Body",
-      exercise: [
-        Exercise(name: "Leg Extension", weight: "10", reps: "10", sets: "3"),
+      exercises: [
+        Exercise(name: "Leg Extension", weight: "20", reps: "10", sets: "3"),
       ],
     ),
   ];
@@ -27,12 +27,12 @@ class WorkoutData extends ChangeNotifier {
   int numberOfExercisesInWorkout(String workoutName) {
     Workout relevantWorkout = getRelevantWorkout(workoutName);
 
-    return relevantWorkout.exercise.length;
+    return relevantWorkout.exercises.length;
   }
 
   // adiciona treinos
   void addWorkout(String name) {
-    workoutList.add(Workout(name: name, exercise: []));
+    workoutList.add(Workout(name: name, exercises: []));
 
     notifyListeners();
   }
@@ -48,7 +48,7 @@ class WorkoutData extends ChangeNotifier {
     // define o treino relevante
     Workout relevantWorkout = getRelevantWorkout(workoutName);
 
-    relevantWorkout.exercise.add(
+    relevantWorkout.exercises.add(
       Exercise(name: exerciseName, weight: weight, reps: reps, sets: sets),
     );
 
@@ -77,7 +77,7 @@ class WorkoutData extends ChangeNotifier {
   Exercise getRelevantExercise(String workoutName, String exerciseName) {
     Workout relevantWorkout = getRelevantWorkout(workoutName);
 
-    Exercise relevantExercise = relevantWorkout.exercise.firstWhere(
+    Exercise relevantExercise = relevantWorkout.exercises.firstWhere(
       (exercise) => exercise.name == exerciseName,
     );
 

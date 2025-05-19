@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pump_log/data/workout_data.dart';
+import 'package:pump_log/pages/workout_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +28,16 @@ class _HomePageState extends State<HomePage> {
               MaterialButton(onPressed: cancel, child: Text('Cancelar')),
             ],
           ),
+    );
+  }
+
+  // vai para tela de treino
+  void goToWorkoutPage(String workoutName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WorkoutPage(workoutName: workoutName),
+      ),
     );
   }
 
@@ -67,8 +78,16 @@ class _HomePageState extends State<HomePage> {
             body: ListView.builder(
               itemCount: value.getWorkoutList().length,
               itemBuilder:
-                  (context, index) =>
-                      ListTile(title: Text(value.getWorkoutList()[index].name)),
+                  (context, index) => ListTile(
+                    title: Text(value.getWorkoutList()[index].name),
+                    trailing: IconButton(
+                      icon: Icon(Icons.arrow_forward_ios),
+                      onPressed:
+                          () => goToWorkoutPage(
+                            value.getWorkoutList()[index].name,
+                          ),
+                    ),
+                  ),
             ),
           ),
     );
